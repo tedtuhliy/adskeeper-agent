@@ -352,19 +352,29 @@ app.get('/api/widget-spend', (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+let _syncRunning = false;
 app.post('/api/sync/today', async (req, res) => {
+  const lf = new LuckyFeedApi();
+  if (!lf.key) return res.status(500).json({ error: 'LUCKY_KEY env not set' });
+  if (_syncRunning) return res.json({ ok: false, message: 'Синк уже запущен' });
+  const country = req.body?.country || req.query?.country;
+  const countries = country ? [country.toUpperCase()] :
+    ['BG','SK','CZ','HU','SI','RO','GR','RS','HR','DE','AT','CH','FR','BE','ES','PT','NL','IT'];
+  // Start async, return immediately
+  _syncRunning = true;
+  res.json({ ok: true, message: `Синк запущен для ${countries.join(', ')}`, countries });
+  let total = 0;
   try {
-    const api = new LuckyFeedApi();
-    if (!api.key) return res.status(500).json({ error: 'LUCKY_KEY env not set' });
-    const countries = ['BG','SK','CZ','HU','SI','RO','GR','RS','HR','DE','AT','CH','FR','BE','ES','PT','NL','IT'];
-    let total = 0;
     for (const cc of countries) {
-      const rows = await api.fetchToday(SOURCE_ADSKEEPER, cc);
+      const rows = await lf.fetchToday(SOURCE_ADSKEEPER, cc);
       if (rows.length) { upsertTodayStats(rows.map(r => ({ ...r, country_code: cc })), SOURCE_ADSKEEPER); total += rows.length; }
     }
-    res.json({ ok: true, message: `Синкнуто ${total} записей за сегодня` });
-  } catch (e) { res.status(500).json({ error: e.message }); }
+    console.log(`[sync/today] done: ${total} rows for ${countries.join(',')}`);
+  } catch(e) { console.error('[sync/today] error:', e.message); }
+  finally { _syncRunning = false; }
 });
+
+app.get('/api/sync/status', (req, res) => res.json({ running: _syncRunning }));
 
 // ── Balances ──────────────────────────────────────────────────────────────────
 app.get('/api/balances', async (req, res) => {
