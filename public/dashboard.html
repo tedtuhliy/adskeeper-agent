@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Dashboard — Adskeeper Agent</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,system-ui,sans-serif;background:#0e1117;color:#e6edf3}
+nav{background:#161b22;border-bottom:1px solid #30363d;padding:10px 20px;display:flex;gap:16px;align-items:center}
+nav a{color:#8b949e;text-decoration:none;font-size:13px;padding:4px 10px;border-radius:5px}
+nav a:hover,nav a.active{background:#21262d;color:#e6edf3}
+nav h1{font-size:15px;font-weight:600;color:#e6edf3;margin-right:10px}
+.controls{padding:12px 20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #21262d}
+.controls select,.controls button{background:#21262d;color:#e6edf3;border:1px solid #30363d;padding:6px 12px;border-radius:6px;font-size:13px;cursor:pointer}
+.controls button:hover{background:#30363d}
+.btn-start{background:#0f5132 !important;color:#3fb950 !important;border-color:#3fb950 !important}
+.btn-stop{background:#5a1f1f !important;color:#f85149 !important;border-color:#f85149 !important}
+.balances{display:flex;gap:12px;padding:14px 20px;border-bottom:1px solid #21262d;flex-wrap:wrap}
+.balance-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px 16px;min-width:180px}
+.balance-card .acc{font-size:11px;color:#8b949e}
+.balance-card .amt{font-size:22px;font-weight:700;color:#3fb950;margin:4px 0}
+.balance-card .geos{font-size:10px;color:#6e7681}
+.daypart{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px 16px;min-width:220px}
+.daypart .label{font-size:11px;color:#8b949e}
+.daypart .status{font-size:16px;font-weight:600;margin:4px 0}
+.daypart .next{font-size:11px;color:#6e7681}
+.section{padding:16px 20px}
+.section h2{font-size:13px;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+.camps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.camp-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px 14px}
+.camp-card .cname{font-size:12px;font-weight:600;color:#e6edf3;margin-bottom:4px}
+.camp-card .cmeta{font-size:11px;color:#6e7681}
+.camp-card .cbadge{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:600;margin-right:4px}
+.status-active{background:#0f5132;color:#3fb950}
+.status-paused{background:#3d2400;color:#d29922}
+.status-mod{background:#1f3d5c;color:#58a6ff}
+.table-wrap{padding:0 20px 20px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:#161b22;color:#8b949e;padding:8px 10px;text-align:left;border-bottom:1px solid #30363d;white-space:nowrap}
+td{padding:6px 10px;border-bottom:1px solid #21262d;white-space:nowrap}
+tr:hover td{background:#1c2128}
+.btn-sm{background:#21262d;color:#e6edf3;border:1px solid #30363d;padding:3px 9px;border-radius:5px;font-size:11px;cursor:pointer}
+.btn-sm:hover{background:#30363d}
+.btn-sm.block{border-color:#f85149;color:#f85149}
+.btn-sm.boost{border-color:#3fb950;color:#3fb950}
+#log{font-size:11px;color:#6e7681;padding:4px 20px;min-height:20px}
+</style>
+</head>
+<body>
+<nav>
+  <h1>🤖 Adskeeper Agent</h1>
+  <a href="/">Агент</a>
+  <a href="/dashboard.html" class="active">Dashboard</a>
+  <a href="/analytics.html">Analytics</a>
+</nav>
+<div class="controls">
+  <select id="acc-sel">
+    <option value="848676">Аккаунт 848676 (BG/SK/CZ/HU/SI/RO/GR/RS/HR)</option>
+    <option value="849458">Аккаунт 849458 (DE/AT/CH/FR/BE/ES/PT/NL)</option>
+  </select>
+  <button onclick="loadAll()">Обновить</button>
+  <button class="btn-start" onclick="daypartAction('start')">▶ Запустить все</button>
+  <button class="btn-stop" onclick="daypartAction('stop')">⏸ Остановить все</button>
+</div>
+<div id="log"></div>
+<div class="balances" id="balances"><div style="padding:10px;color:#6e7681">Загрузка балансов…</div></div>
+<div class="section">
+  <h2>Кампании</h2>
+  <div id="camps" class="camps-grid"><div style="color:#6e7681">Загрузка…</div></div>
+</div>
+<div class="section">
+  <h2>Тизеры (первые 100)</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr>
+      <th>ID</th><th>Кампания</th><th>Заголовок</th><th>CPC</th><th>Статус</th><th>Действия</th>
+    </tr></thead>
+    <tbody id="teasers-body"></tbody>
+  </table>
+  </div>
+</div>
+<script>
+const log=m=>{document.getElementById('log').textContent=m;};
+const api=(method,url,body)=>fetch(url,{method,headers:{'Content-Type':'application/json'},...(body?{body:JSON.stringify(body)}:{})}).then(r=>r.json());
+
+function accParam(){return '?account='+document.getElementById('acc-sel').value;}
+
+async function loadBalances(){
+  const r=await api('GET','/api/balances');
+  if(!r?.accounts) return;
+  document.getElementById('balances').innerHTML=r.accounts.map(a=>`
+    <div class="balance-card"><div class="acc">${a.label}</div><div class="amt">${a.balance?.toFixed(2)||'—'} $</div><div class="geos">${a.geos}</div></div>
+  `).join('')+`<div class="daypart"><div class="label">Dayparting (МСК)</div><div class="status">${r.daypart?.working?'🟢 Работают':'🔴 Остановлены'}</div><div class="next">Следующее: ${r.daypart?.next?.action} в ${r.daypart?.next?.msk}</div></div>`;
+}
+
+async function loadCampaigns(){
+  const acc=document.getElementById('acc-sel').value;
+  const r=await api('GET','/api/campaigns'+accParam());
+  const camps=Array.isArray(r)?r:[];
+  const statusLabel=s=>({1:'🟢 active',4:'⏸ paused',13:'🔒 platform',14:'🗑 deleted'}[s]||s);
+  document.getElementById('camps').innerHTML=camps.slice(0,50).map(c=>`
+    <div class="camp-card">
+      <div class="cname"><a href="https://office.adskeeper.com/campaigns/${c.id}" target="_blank" style="color:#58a6ff;text-decoration:none">${c.id}</a> ${c.name||''}</div>
+      <div class="cmeta">${c.geo||''} · CPC ${c.priceOfClick||'?'}$ · ${c.teasersCount||0} тиз</div>
+      <div style="margin-top:6px">
+        <span class="cbadge ${c.status===1?'status-active':c.status===4?'status-paused':'status-mod'}">${statusLabel(c.status)}</span>
+      </div>
+    </div>
+  `).join('')||'<div style="color:#6e7681">Нет кампаний</div>';
+}
+
+async function loadTeasers(){
+  const r=await api('GET','/api/teasers'+accParam());
+  const items=r?.items||r?.data||(Array.isArray(r)?r:[]);
+  const statusLabel=s=>({1:'active',2:'moderation',4:'paused',6:'rejected'}[s]||s);
+  document.getElementById('teasers-body').innerHTML=items.slice(0,100).map(t=>`<tr>
+    <td>${t.id}</td>
+    <td>${t.campaignId||'—'}</td>
+    <td style="max-width:240px;overflow:hidden;text-overflow:ellipsis">${t.title||''}</td>
+    <td>${t.priceOfClick||'—'}</td>
+    <td>${statusLabel(t.status)}</td>
+    <td>
+      <button class="btn-sm" onclick="pauseTeaser(${t.id})">⏸</button>
+      <button class="btn-sm" onclick="resumeTeaser(${t.id})">▶</button>
+      <button class="btn-sm block" onclick="if(confirm('Удалить ${t.id}?')) deleteTeaser(${t.id})">🗑</button>
+    </td>
+  </tr>`).join('');
+}
+
+async function daypartAction(action){
+  log('Выполняю '+action+'...');
+  const r=await api('POST','/api/daypart/'+action);
+  log(`${action}: ${r.count||0} кампаний. ${r.errors?.length?'Ошибки: '+r.errors.join(', '):''}`);
+  loadCampaigns();
+}
+
+async function pauseTeaser(id){
+  await api('PATCH','/api/teasers/'+id+accParam(),{whetherToBlockByClient:1});
+  log('Тизер '+id+' приостановлен'); loadTeasers();
+}
+async function resumeTeaser(id){
+  await api('PATCH','/api/teasers/'+id+accParam(),{whetherToBlockByClient:0});
+  log('Тизер '+id+' запущен'); loadTeasers();
+}
+async function deleteTeaser(id){
+  await api('DELETE','/api/teasers/'+id+accParam());
+  log('Тизер '+id+' удалён'); loadTeasers();
+}
+
+async function loadAll(){
+  await Promise.all([loadBalances(), loadCampaigns(), loadTeasers()]);
+}
+
+loadAll();
+setInterval(loadBalances, 60000);
+</script>
+</body>
+</html>
