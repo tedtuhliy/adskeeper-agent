@@ -1,0 +1,8 @@
+{
+  "name": "adskeeper-agent",
+  "version": "0.1.0",
+  "description": "Adskeeper Agent",
+  "main": "index.js",
+  "scripts": { "start": "node index.js" },
+  "engines": { "node": ">=22" }
+}
