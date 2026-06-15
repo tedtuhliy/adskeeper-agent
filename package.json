@@ -1,8 +1,13 @@
 {
   "name": "adskeeper-agent",
   "version": "0.1.0",
-  "description": "Adskeeper Agent",
+  "description": "Adskeeper/MGID Agent",
   "main": "index.js",
   "scripts": { "start": "node index.js" },
+  "dependencies": {
+    "express": "^4.18.2",
+    "better-sqlite3": "^9.4.3",
+    "node-fetch": "^2.7.0"
+  },
   "engines": { "node": ">=22" }
 }
