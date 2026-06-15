@@ -1,0 +1,638 @@
+{
+    "PT": {
+        "lang": 8,
+        "geo": [
+            "PT"
+        ],
+        "cpc": 1.5,
+        "adv": "SaudeNatural",
+        "postback": true,
+        "offers": [
+            {
+                "id": 99594,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/99594?stream_uuid=0adb249b-fb84-4ae9-af26-cb5e8bd86aa2&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "ustalho",
+                "pool": "si_98450",
+                "titles": [
+                    "Cozinhe alho no leite e beba: uma vez é suficiente",
+                    "Alho em leite: a receita da avó que realmente funciona",
+                    "Por que as pessoas bebem alho quente com leite à noite",
+                    "O método antigo com alho e leite: experimente",
+                    "Alho com leite: a bebida caseira antes de dormir"
+                ]
+            },
+            {
+                "id": 100400,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/100400?stream_uuid=c999e679-6b43-48f7-a011-15c6e460471b&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "aloevera",
+                "pool": "si_100531",
+                "titles": [
+                    "Aloe vera: o poder curativo da natureza para a saúde",
+                    "Aloe em casa: benefícios que você não esperava",
+                    "Por que plantar aloe vera dentro de casa",
+                    "Aloe vera: a fonte natural de saúde no seu lar",
+                    "Benefícios do aloe que poucas pessoas conhecem"
+                ]
+            },
+            {
+                "id": 103896,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/103896?stream_uuid=1c2c0711-9ecb-44c5-9d1f-61167c707f4e&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "alho6",
+                "pool": "si_103918",
+                "titles": [
+                    "6 formas como o alho melhora a sua saúde",
+                    "Alho todos os dias: 6 benefícios a saber",
+                    "Seis razões simples para comer alho fresco",
+                    "Como o alho afeta o corpo: 6 fatos comprovados",
+                    "Alho na cozinha: o que faz pela saúde"
+                ]
+            },
+            {
+                "id": 156588,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/156588?stream_uuid=e6e4d468-1852-4d1e-a803-fd10e4cc8158&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "aguaovos",
+                "pool": "si_155941",
+                "titles": [
+                    "Água do ovo cozido vale ouro — não desperdice!",
+                    "Água dos ovos cozidos: o que você precisa saber",
+                    "O segredo da água dos ovos que você deve guardar",
+                    "Por que guardar a água depois de ferver os ovos",
+                    "Água após ovos: o truque simples da avó"
+                ]
+            },
+            {
+                "id": 101916,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/101916?stream_uuid=e0ebed41-2d7d-4876-a37b-9ec6422d734a&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "acordar35",
+                "pool": "si_233816",
+                "titles": [
+                    "Acorda entre 3 e 5 da manhã? Saiba o que significa",
+                    "Despertar às 3h: o que seu corpo tenta dizer",
+                    "Por que tantas pessoas acordam às 3 da manhã",
+                    "Acordar às 3-5h: significado que poucos conhecem",
+                    "Sinal do corpo: quando você acorda de madrugada"
+                ]
+            }
+        ]
+    },
+    "ES": {
+        "lang": 2,
+        "geo": [
+            "ES"
+        ],
+        "cpc": 1.5,
+        "adv": "SaludNatural",
+        "postback": true,
+        "offers": [
+            {
+                "id": 170518,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/170518?stream_uuid=f4818743-91d0-4b58-be5c-94b550112d50&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "ajolecheherv",
+                "pool": "si_98450",
+                "titles": [
+                    "Hervir ajo en leche: ¡una sola vez es suficiente!",
+                    "Ajo en leche: la receta de la abuela que funciona",
+                    "Por qué la gente bebe ajo caliente con leche por la noche",
+                    "El método antiguo con ajo y leche: pruébalo",
+                    "Ajo con leche: la bebida casera antes de dormir"
+                ]
+            },
+            {
+                "id": 100401,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/100401?stream_uuid=b66e5bb8-9a6e-4b67-bf4c-8a66bde9062b&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "aloebenefit",
+                "pool": "si_100531",
+                "titles": [
+                    "Aloe vera: el poder curativo de la naturaleza",
+                    "Aloe en casa: beneficios que no esperabas",
+                    "Por qué tener aloe vera dentro de tu hogar",
+                    "Aloe vera: la fuente natural de salud en tu sala",
+                    "Beneficios del aloe que pocos conocen"
+                ]
+            },
+            {
+                "id": 103895,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/103895?stream_uuid=a54d0d3b-a9e8-4884-95cb-52afde5d1ac9&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "ajo6formas",
+                "pool": "si_103918",
+                "titles": [
+                    "6 formas en que el ajo mejora tu salud",
+                    "Ajo todos los días: 6 beneficios que debes saber",
+                    "Seis razones sencillas para comer ajo fresco",
+                    "Cómo el ajo afecta al cuerpo: 6 hechos probados",
+                    "Ajo en la cocina: lo que hace por la salud"
+                ]
+            },
+            {
+                "id": 160188,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/160188?stream_uuid=0110be3f-abca-4be7-8be9-c28a46baf3eb&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "aguahuevos",
+                "pool": "si_155941",
+                "titles": [
+                    "No tires el agua de los huevos hervidos: ¡vale oro!",
+                    "Agua de los huevos: lo que necesitas saber",
+                    "El secreto del agua de los huevos que guardabas",
+                    "Por qué guardar el agua al hervir huevos",
+                    "Agua tras los huevos: el truco sencillo de la abuela"
+                ]
+            },
+            {
+                "id": 234382,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/234382?stream_uuid=fbc7ff2c-7c55-44f9-a212-39ef27df43f8&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "limon10ben",
+                "pool": "si_233816",
+                "titles": [
+                    "10 beneficios del limón para la salud que sorprenden",
+                    "10 razones para comer limón todos los días",
+                    "El limón y la salud: 10 datos inesperados",
+                    "Diez formas en que el limón ayuda al cuerpo",
+                    "Limón: 10 beneficios que pocos conocen"
+                ]
+            }
+        ]
+    },
+    "FR": {
+        "lang": 3,
+        "geo": [
+            "FR",
+            "BE"
+        ],
+        "cpc": 2,
+        "adv": "SanteNaturelle",
+        "postback": true,
+        "offers": [
+            {
+                "id": 170516,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/170516?stream_uuid=aa06e4e0-112d-4a77-b645-c92330d4f1ab&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "aillait",
+                "pool": "si_98450",
+                "titles": [
+                    "Faire bouillir l'ail dans du lait : une seule fois suffit",
+                    "Ail au lait : la recette de grand-mère qui marche",
+                    "Pourquoi les gens boivent de l'ail chaud au lait le soir",
+                    "La vieille méthode ail et lait : essayez-la",
+                    "Ail avec du lait : la boisson maison avant de dormir"
+                ]
+            },
+            {
+                "id": 100556,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/100556?stream_uuid=405c73f9-be7b-4141-a475-0bc86edad136&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "aloepouvoir",
+                "pool": "si_100531",
+                "titles": [
+                    "Aloe vera : le pouvoir guérisseur de la nature pour la santé",
+                    "Aloe à la maison : des bienfaits inattendus",
+                    "Pourquoi planter de l'aloe chez soi",
+                    "Aloe vera : la source naturelle de santé chez vous",
+                    "Bienfaits de l'aloe que peu de gens connaissent"
+                ]
+            },
+            {
+                "id": 103965,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/103965?stream_uuid=75a16de2-7d65-4318-ba85-b19d400286af&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "ail6facon",
+                "pool": "si_103918",
+                "titles": [
+                    "6 façons dont l'ail améliore votre santé",
+                    "Ail tous les jours : 6 bienfaits à connaître",
+                    "Six raisons simples de manger de l'ail frais",
+                    "Comment l'ail agit sur le corps : 6 faits prouvés",
+                    "L'ail en cuisine : ce qu'il fait pour la santé"
+                ]
+            },
+            {
+                "id": 156900,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/156900?stream_uuid=204ad0a2-4af0-4733-97e5-4ef7fdc7b5e3&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "eauoeufs",
+                "pool": "si_155941",
+                "titles": [
+                    "Ne jetez pas l'eau des œufs cuits : elle vaut de l'or !",
+                    "Eau des œufs bouillis : ce que vous devez savoir",
+                    "Le secret de l'eau des œufs que vous conserviez",
+                    "Pourquoi garder l'eau après avoir fait bouillir des œufs",
+                    "Eau après les œufs : l'astuce simple de grand-mère"
+                ]
+            },
+            {
+                "id": 233819,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/233819?stream_uuid=2d9bcd8d-1962-4341-820a-620970e6cabb&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "citron10",
+                "pool": "si_233816",
+                "titles": [
+                    "Dix bienfaits surprenants du citron pour la santé",
+                    "10 raisons de manger du citron chaque jour",
+                    "Le citron et la santé : 10 faits inattendus",
+                    "Dix façons dont le citron aide le corps",
+                    "Citron : 10 bienfaits que peu de gens connaissent"
+                ]
+            }
+        ]
+    },
+    "CZ": {
+        "lang": 24,
+        "geo": [
+            "CZ"
+        ],
+        "cpc": 1.5,
+        "adv": "ZdraviPriroda",
+        "postback": true,
+        "offers": [
+            {
+                "id": 144433,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/144433?stream_uuid=8ac4fde5-52a5-4910-bddd-abbe0d9de31e&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "cesnekmleko",
+                "pool": "si_98450",
+                "titles": [
+                    "Česnek vařený v mléce: stačí jednou",
+                    "Česnek v mléce: babiččin recept, který funguje",
+                    "Proč lidé pijí večer teplý česnek s mlékem",
+                    "Stará metoda s česnekem a mlékem: vyzkoušejte",
+                    "Česnek s mlékem: domácí nápoj před spaním"
+                ]
+            },
+            {
+                "id": 100557,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/100557?stream_uuid=6abd1327-e7dc-48a1-9ea3-04f8dba63655&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "aloeproda",
+                "pool": "si_100531",
+                "titles": [
+                    "Aloe vera: léčivá síla přírody pro zdraví",
+                    "Aloe doma: výhody, které jste nečekali",
+                    "Proč pěstovat aloe uvnitř domu",
+                    "Aloe vera: přírodní zdroj zdraví ve vašem domě",
+                    "Výhody aloe, které málokdo zná"
+                ]
+            },
+            {
+                "id": 103964,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/103964?stream_uuid=80e93355-9c43-4576-af01-e8d1aaca7651&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "cesnek6zpus",
+                "pool": "si_103918",
+                "titles": [
+                    "6 způsobů, jak česnek zlepšuje vaše zdraví",
+                    "Česnek každý den: 6 výhod, které musíte znát",
+                    "Šest jednoduchých důvodů jíst čerstvý česnek",
+                    "Jak česnek působí na tělo: 6 ověřených faktů",
+                    "Česnek v kuchyni: co dělá pro zdraví"
+                ]
+            },
+            {
+                "id": 156590,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/156590?stream_uuid=a1e3316b-e05e-4d2a-a3f6-ffd1d91cd224&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "vodavejce",
+                "pool": "si_155941",
+                "titles": [
+                    "Vodu po vaření vajec nevylévejte – stojí za zlato!",
+                    "Voda z vajec: co potřebujete vědět",
+                    "Tajemství vody z vajec, kterou jste si nechávali",
+                    "Proč si ponechat vodu po vaření vajec",
+                    "Voda po vejcích: jednoduchý trik od babičky"
+                ]
+            },
+            {
+                "id": 233820,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/233820?stream_uuid=58f39a03-7670-4852-84fa-83601118a94d&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "citron10vyhod",
+                "pool": "si_233816",
+                "titles": [
+                    "Deset překvapivých zdravotních výhod citrónů",
+                    "10 důvodů jíst citróny každý den",
+                    "Citrón a zdraví: 10 neočekávaných faktů",
+                    "Deset způsobů, jak citrón pomáhá tělu",
+                    "Citróny: 10 výhod, které málokdo zná"
+                ]
+            }
+        ]
+    },
+    "HU": {
+        "lang": 15,
+        "geo": [
+            "HU"
+        ],
+        "cpc": 1.5,
+        "adv": "EgeszsegesElet",
+        "postback": true,
+        "offers": [
+            {
+                "id": 147354,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/147354?stream_uuid=b56a12f6-cc6e-4799-bd16-ea095dd0d319&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "fokhagymatej",
+                "pool": "si_98450",
+                "titles": [
+                    "Fokhagymát tejben főzni és meginni: egyszer elég",
+                    "Fokhagyma tejben: a nagymama receptje, ami működik",
+                    "Miért isznak sokan este meleg fokhagymát tejjel",
+                    "Régi módszer fokhagymával és tejjel: próbálja ki",
+                    "Fokhagyma tejjel: az otthoni ital lefekvés előtt"
+                ]
+            },
+            {
+                "id": 100552,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/100552?stream_uuid=685f93a2-8913-455d-814a-35dff82495c1&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "aloeelonyi",
+                "pool": "si_100531",
+                "titles": [
+                    "Aloe vera: a természet gyógyító ereje az egészségért",
+                    "Aloe otthon: váratlan előnyök, amiket nem ismert",
+                    "Miért érdemes aloe-t ültetni a lakásban",
+                    "Aloe vera: a természetes egészségforrás otthon",
+                    "Az aloe előnyei, amelyeket kevesen ismernek"
+                ]
+            },
+            {
+                "id": 103916,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/103916?stream_uuid=46601e16-ec7e-49bf-ba75-53f1fe62beb3&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "fokhagyma6",
+                "pool": "si_103918",
+                "titles": [
+                    "6 módja, ahogyan a fokhagyma javítja az egészségét",
+                    "Fokhagyma minden nap: 6 előny, amit tudnia kell",
+                    "Hat egyszerű ok, hogy friss fokhagymát együnk",
+                    "Hogyan hat a fokhagyma a szervezetre: 6 tény",
+                    "Fokhagyma a konyhában: mit tesz az egészségért"
+                ]
+            },
+            {
+                "id": 153939,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/153939?stream_uuid=8a0de0a0-fd03-4d24-b7bc-5b209d7378c9&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "tojasvize",
+                "pool": "si_155941",
+                "titles": [
+                    "Ne öntsd ki a tojás főzővizét – aranyat ér!",
+                    "Tojás főzővize: amit tudnia kell",
+                    "A tojásfőző víz titka, amelyet eddig nem ismert",
+                    "Miért kell megtartani a vizet a tojás főzése után",
+                    "Tojás utáni víz: a nagymama egyszerű trükkje"
+                ]
+            },
+            {
+                "id": 234385,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/234385?stream_uuid=b70a536a-8281-422b-b505-9a4c39b4d050&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "citrom10",
+                "pool": "si_233816",
+                "titles": [
+                    "10 meglepő egészségügyi előny a citromfogyasztásból",
+                    "10 ok, hogy minden nap együnk citromot",
+                    "A citrom és az egészség: 10 váratlan tény",
+                    "Tíz mód, ahogy a citrom segít a szervezetnek",
+                    "Citrom: 10 előny, amelyet kevesen ismernek"
+                ]
+            }
+        ]
+    },
+    "DE": {
+        "lang": 4,
+        "geo": [
+            "DE",
+            "AT",
+            "CH"
+        ],
+        "cpc": 4,
+        "adv": "GesundheitTipps",
+        "postback": true,
+        "offers": [
+            {
+                "id": 98417,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/98417?stream_uuid=55aa327a-5ee7-4e30-a3f8-d54a90b36521&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "knobmilch",
+                "pool": "si_98450",
+                "titles": [
+                    "Knoblauch in Milch kochen und trinken: einmal reicht",
+                    "Knoblauch in Milch: das Rezept der Oma, das wirkt",
+                    "Warum Menschen abends warmen Knoblauch mit Milch trinken",
+                    "Die alte Methode mit Knoblauch und Milch: probieren Sie es",
+                    "Knoblauch mit Milch: das Hausgetränk vor dem Schlafen"
+                ]
+            },
+            {
+                "id": 100555,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/100555?stream_uuid=68850406-4e3b-40f4-800f-bd518b693e3c&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "aloekraft",
+                "pool": "si_100531",
+                "titles": [
+                    "Aloe vera: die heilende Kraft der Natur für die Gesundheit",
+                    "Aloe zu Hause: unerwartete Vorteile für die Gesundheit",
+                    "Warum man Aloe in der Wohnung pflanzen sollte",
+                    "Aloe vera: die natürliche Gesundheitsquelle bei Ihnen",
+                    "Vorteile der Aloe, die kaum jemand kennt"
+                ]
+            },
+            {
+                "id": 103894,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/103894?stream_uuid=89839c1c-fe52-4072-8ef8-84eef6ce3631&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "knob6wege",
+                "pool": "si_103918",
+                "titles": [
+                    "6 Wege, wie Knoblauch Ihre Gesundheit verbessert",
+                    "Knoblauch jeden Tag: 6 Vorteile, die Sie kennen sollten",
+                    "Sechs einfache Gründe, frischen Knoblauch zu essen",
+                    "Wie Knoblauch den Körper beeinflusst: 6 bewiesene Fakten",
+                    "Knoblauch in der Küche: was er für die Gesundheit tut"
+                ]
+            },
+            {
+                "id": 153927,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/153927?stream_uuid=ee84b9ea-7127-44da-a626-ebe381ddd0f6&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "eierkochwas",
+                "pool": "si_155941",
+                "titles": [
+                    "Eier-Kochwasser nicht wegschütten – es ist Gold wert!",
+                    "Wasser vom Eikochen: was Sie wissen müssen",
+                    "Das Geheimnis des Eikochwassers, das Sie aufbewahrten",
+                    "Warum das Wasser nach dem Eikochen aufheben",
+                    "Wasser nach Eiern: der einfache Trick der Oma"
+                ]
+            },
+            {
+                "id": 233818,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/233818?stream_uuid=4f86d31c-4d1c-431f-b049-6bcbdd759c1f&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "zitrone10",
+                "pool": "si_233816",
+                "titles": [
+                    "Zehn überraschende gesundheitliche Vorteile von Zitronen",
+                    "10 Gründe, jeden Tag Zitronen zu essen",
+                    "Zitrone und Gesundheit: 10 unerwartete Fakten",
+                    "Zehn Wege, wie die Zitrone dem Körper hilft",
+                    "Zitronen: 10 Vorteile, die kaum jemand kennt"
+                ]
+            }
+        ]
+    },
+    "LATAM": {
+        "lang": 2,
+        "geo": [
+            "PE",
+            "CL"
+        ],
+        "cpc": 1.5,
+        "adv": "SaludNatLatam",
+        "postback": true,
+        "offers": [
+            {
+                "id": 170518,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/170518?stream_uuid=f4818743-91d0-4b58-be5c-94b550112d50&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "ajolechelatam",
+                "pool": "si_98450",
+                "titles": [
+                    "Hervir ajo en leche: remedio de la abuela latinoamericana",
+                    "Ajo en leche: la tradición casera que sigue funcionando",
+                    "El secreto del ajo hervido en leche para la salud",
+                    "Ajo con leche antes de dormir: lo que ocurre en el cuerpo",
+                    "La bebida de ajo y leche que muchos no conocen aún"
+                ]
+            },
+            {
+                "id": 100401,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/100401?stream_uuid=b66e5bb8-9a6e-4b67-bf4c-8a66bde9062b&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "aloelatam",
+                "pool": "si_100531",
+                "titles": [
+                    "Aloe vera: la planta curativa que tienes en casa",
+                    "Aloe en el hogar: beneficios que te sorprenderán",
+                    "Por qué tener aloe vera en tu departamento",
+                    "Los beneficios del aloe que pocos conocen en Latinoamérica",
+                    "Aloe vera: la fuente natural de salud para cada familia"
+                ]
+            },
+            {
+                "id": 103895,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/103895?stream_uuid=a54d0d3b-a9e8-4884-95cb-52afde5d1ac9&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "ajo6latam",
+                "pool": "si_103918",
+                "titles": [
+                    "6 formas en que el ajo transforma tu salud",
+                    "Comer ajo a diario: 6 efectos reales en el cuerpo",
+                    "Seis razones para incluir ajo fresco en tu dieta",
+                    "Lo que el ajo le hace a tu organismo: 6 hechos",
+                    "El ajo como medicina: 6 usos que debes conocer"
+                ]
+            },
+            {
+                "id": 160188,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/160188?stream_uuid=0110be3f-abca-4be7-8be9-c28a46baf3eb&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "aguahuevlatam",
+                "pool": "si_155941",
+                "titles": [
+                    "No botes el agua donde herviste los huevos: ¡vale oro!",
+                    "El agua de los huevos cocidos y sus usos en el hogar",
+                    "Un truco casero con el agua de los huevos que cambia todo",
+                    "Agua de huevos: el secreto que tu abuela ya sabía",
+                    "Reutiliza el agua de los huevos: te sorprenderás"
+                ]
+            },
+            {
+                "id": 234382,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/234382?stream_uuid=fbc7ff2c-7c55-44f9-a212-39ef27df43f8&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "limonlatam",
+                "pool": "si_233816",
+                "titles": [
+                    "10 beneficios del limón que cambiarán tu vida",
+                    "El limón: 10 razones para consumirlo todos los días",
+                    "Lo que el limón hace en tu cuerpo: 10 datos clave",
+                    "Diez usos del limón para la salud que no conocías",
+                    "Limón y salud: 10 verdades que pocos conocen en LATAM"
+                ]
+            }
+        ]
+    },
+    "NL": {
+        "lang": 16,
+        "geo": [
+            "NL"
+        ],
+        "cpc": 2,
+        "adv": "GezondheidTips",
+        "postback": true,
+        "offers": [
+            {
+                "id": 224004,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/224004?stream_uuid=fcf7abf2-9f66-4a11-ac96-86c46258dde2&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "eierwater",
+                "pool": "si_155941",
+                "titles": [
+                    "Gooi het kookwater van eieren niet weg — het is goud waard!",
+                    "Het geheim van eierwater dat iedereen zou moeten kennen",
+                    "Waarom je het water na het koken van eieren moet bewaren",
+                    "Eierwater: het eenvoudige huishoudtip dat echt werkt",
+                    "Kookwater van eieren: wat niemand je ooit heeft verteld"
+                ]
+            },
+            {
+                "id": 229077,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/229077?stream_uuid=078792ca-55ad-44de-b1bf-ba47afaa0197&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "pensioen2026",
+                "pool": "pension_nl_pensioen2026",
+                "titles": [
+                    "Let op gepensioneerden: grote veranderingen in 2026",
+                    "Pensioen 2026: wat elke gepensioneerde moet weten",
+                    "Pensioenfondsen verhogen uitkeringen — lees de details",
+                    "Uw pensioen in 2026: belangrijke wijzigingen op komst",
+                    "Wat gepensioneerden niet weten over hun uitkering"
+                ]
+            },
+            {
+                "id": 234381,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/234381?stream_uuid=9ff8d460-7c7a-4342-b25a-bd5c90c5faad&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "citroen10",
+                "pool": "si_233816",
+                "titles": [
+                    "10 verbluffende gezondheidsvoordelen van citroenen",
+                    "Waarom je elke dag citroensap zou moeten drinken",
+                    "Citroen en gezondheid: 10 feiten die je zullen verrassen",
+                    "Tien manieren waarop citroen jouw lichaam helpt",
+                    "Citroenen: 10 voordelen die weinig mensen kennen"
+                ]
+            }
+        ]
+    },
+    "HR": {
+        "lang": 28,
+        "geo": [
+            "HR"
+        ],
+        "cpc": 1.5,
+        "adv": "ZdravstveniSavjeti",
+        "postback": true,
+        "offers": [
+            {
+                "id": 98455,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/98455?stream_uuid=173e473e-df6b-4a37-ba9a-3967b71e10c2&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "cesnjak_mlijeko",
+                "pool": "si_98450",
+                "titles": [
+                    "Skuhajte češnjak u mlijeku i popijte: jednom je dovoljno",
+                    "Češnjak u mlijeku: bakina recept koji stvarno pomaže",
+                    "Zašto mnogi piju topli češnjak s mlijekom navečer",
+                    "Stara metoda s češnjakom i mlijekom: isprobajte",
+                    "Češnjak s mlijekom: kućni napitak prije spavanja"
+                ]
+            },
+            {
+                "id": 100544,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/100544?stream_uuid=566b73ee-fd86-496c-ac59-aa02f473980f&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "aloja_dom",
+                "pool": "si_100531",
+                "titles": [
+                    "Aloja: ljekovita moć prirode za vašu kožu i zdravlje",
+                    "Aloja kod kuće: neočekivane prednosti za zdravlje",
+                    "Zašto bi trebali uzgajati aloju vera u svom domu",
+                    "Aloja vera: prirodni izvor zdravlja u vašem domu",
+                    "Prednosti aloje koje malo tko poznaje"
+                ]
+            },
+            {
+                "id": 234384,
+                "url": "https:\/\/pressreportzone.com\/v1\/full\/234384?stream_uuid=2e027187-eee9-44f3-8508-f0f4bb404b15&subid1={teaser_id}&subid2={widget_id}&subid3={widget_id}&subid4={category_id}&subid5={click_id}",
+                "theme": "limun10",
+                "pool": "si_233816",
+                "titles": [
+                    "Otkrijte 10 nevjerojatnih zdravstvenih prednosti limuna!",
+                    "Zašto bi trebali jesti limun svaki dan",
+                    "Limun i zdravlje: 10 neočekivanih činjenica",
+                    "Deset načina na koje limun pomaže vašem tijelu",
+                    "Limuni: 10 prednosti koje malo tko zna"
+                ]
+            }
+        ]
+    }
+}
