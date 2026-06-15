@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Analytics — Adskeeper Agent</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,system-ui,sans-serif;background:#0e1117;color:#e6edf3;min-height:100vh}
+nav{background:#161b22;border-bottom:1px solid #30363d;padding:10px 20px;display:flex;gap:16px;align-items:center}
+nav a{color:#8b949e;text-decoration:none;font-size:13px;padding:4px 10px;border-radius:5px}
+nav a:hover,nav a.active{background:#21262d;color:#e6edf3}
+nav h1{font-size:15px;font-weight:600;color:#e6edf3;margin-right:10px}
+.controls{padding:14px 20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #21262d}
+.controls select,.controls button,.controls input{background:#21262d;color:#e6edf3;border:1px solid #30363d;padding:6px 12px;border-radius:6px;font-size:13px}
+.controls button{cursor:pointer}
+.controls button:hover{background:#30363d}
+.controls button.primary{background:#1f6feb;border-color:#1f6feb}
+.controls button.primary:hover{background:#388bfd}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;padding:16px 20px}
+.kpi{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px 16px}
+.kpi .label{font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:.5px}
+.kpi .value{font-size:24px;font-weight:700;margin-top:4px}
+.kpi .sub{font-size:11px;color:#6e7681;margin-top:2px}
+.kpi.green .value{color:#3fb950}
+.kpi.red .value{color:#f85149}
+.kpi.blue .value{color:#58a6ff}
+.kpi.yellow .value{color:#d29922}
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 20px 16px}
+.chart-box{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px}
+.chart-box h3{font-size:12px;color:#8b949e;text-transform:uppercase;margin-bottom:12px}
+.table-wrap{padding:0 20px 20px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:#161b22;color:#8b949e;padding:8px 10px;text-align:left;border-bottom:1px solid #30363d;position:sticky;top:0;cursor:pointer;white-space:nowrap}
+th:hover{color:#e6edf3}
+td{padding:7px 10px;border-bottom:1px solid #21262d;white-space:nowrap}
+tr:hover td{background:#1c2128}
+.badge{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:600}
+.badge.scale{background:#0f5132;color:#3fb950}
+.badge.watch{background:#5a3e00;color:#d29922}
+.badge.stop{background:#5a1f1f;color:#f85149}
+.badge.dead{background:#21262d;color:#6e7681}
+.pos{color:#3fb950}.neg{color:#f85149}
+.spinner-wrap{padding:40px;text-align:center;color:#6e7681}
+#sync-log{font-size:11px;color:#6e7681;padding:4px 20px}
+</style>
+</head>
+<body>
+<nav>
+  <h1>🤖 Adskeeper Agent</h1>
+  <a href="/">Агент</a>
+  <a href="/dashboard.html">Dashboard</a>
+  <a href="/analytics.html" class="active">Analytics</a>
+</nav>
+<div class="controls">
+  <select id="geo-sel"><option value="">Все гео</option></select>
+  <select id="source-sel">
+    <option value="44">Adskeeper (44)</option>
+    <option value="19">MGID (19)</option>
+    <option value="">Все</option>
+  </select>
+  <select id="period-sel">
+    <option value="all">Весь период</option>
+    <option value="14d">14 дней</option>
+    <option value="30d">30 дней</option>
+  </select>
+  <button class="primary" onclick="loadData()">Обновить</button>
+  <button onclick="syncToday()" id="sync-btn">Синк сегодня</button>
+  <span id="sync-log"></span>
+</div>
+<div class="kpi-row" id="kpis"><div class="spinner-wrap">Загрузка…</div></div>
+<div class="charts-row">
+  <div class="chart-box"><h3>Топ-10 виджетов по revenue</h3><canvas id="chart-revenue" height="200"></canvas></div>
+  <div class="chart-box"><h3>Распределение по tier</h3><canvas id="chart-tier" height="200"></canvas></div>
+</div>
+<div class="table-wrap">
+  <table id="tbl">
+    <thead><tr>
+      <th onclick="sortBy('widget_id')">Widget ID</th>
+      <th onclick="sortBy('country')">GEO</th>
+      <th onclick="sortBy('visits')">Визиты</th>
+      <th onclick="sortBy('clicks')">Клики</th>
+      <th onclick="sortBy('ctr')">CTR%</th>
+      <th onclick="sortBy('leads')">Лиды</th>
+      <th onclick="sortBy('revenue_usd')">Revenue $</th>
+      <th onclick="sortBy('spend_usd')">Spend $</th>
+      <th onclick="sortBy('profit')">Profit $</th>
+      <th onclick="sortBy('epc')">EPC ¢</th>
+      <th onclick="sortBy('tier')">Tier</th>
+    </tr></thead>
+    <tbody id="tbl-body"></tbody>
+  </table>
+</div>
+<script>
+let allRows=[], sortCol='revenue_usd', sortAsc=false;
+let chartRevenue=null, chartTier=null;
+
+async function loadData(){
+  document.getElementById('kpis').innerHTML='<div class="spinner-wrap">Загрузка…</div>';
+  document.getElementById('tbl-body').innerHTML='';
+  const geo=document.getElementById('geo-sel').value;
+  const src=document.getElementById('source-sel').value;
+  const qs=new URLSearchParams({...(geo&&{country:geo}), ...(src&&{source_id:src})});
+  const [statsRes, spendRes] = await Promise.all([
+    fetch('/api/widget-stats?'+qs).then(r=>r.json()),
+    fetch('/api/widget-spend?days=30').then(r=>r.json()),
+  ]);
+
+  // Build spend map
+  const spendMap={};
+  (spendRes||[]).forEach(s=>{spendMap[s.widget_id]=(spendMap[s.widget_id]||0)+parseFloat(s.spend_usd||0);});
+
+  // Enrich with spend + derived metrics + tier
+  allRows=(statsRes||[]).map(r=>{
+    const spend=spendMap[r.widget_id]||0;
+    const revenue=parseFloat(r.revenue_usd||0);
+    const profit=revenue-spend;
+    const visits=parseInt(r.visits||0);
+    const clicks=parseInt(r.clicks||0);
+    const ctr=visits>0?(clicks*100/visits):0;
+    const epc=visits>0?(revenue/visits*100):0;
+    const leads=parseInt(r.leads||0);
+    let tier='dead';
+    if(profit>5&&epc>=2||profit>0&&epc>=1.5) tier='scale';
+    else if(profit>=-5&&epc>=1) tier='watch';
+    else if(profit<-10||visits>=200&&revenue<1) tier='stop';
+    return {...r, spend_usd:spend, profit, ctr:ctr.toFixed(1), epc:epc.toFixed(3), tier, visits, clicks, leads, revenue_usd:revenue};
+  });
+
+  renderKpis();
+  renderCharts();
+  renderTable();
+  fillGeoFilter(allRows);
+}
+
+function fillGeoFilter(rows){
+  const geos=[...new Set(rows.map(r=>r.country))].sort();
+  const sel=document.getElementById('geo-sel');
+  const cur=sel.value;
+  sel.innerHTML='<option value="">Все гео</option>'+geos.map(g=>`<option value="${g}">${g}</option>`).join('');
+  sel.value=cur;
+}
+
+function renderKpis(){
+  const rows=allRows;
+  const totalRev=rows.reduce((a,r)=>a+r.revenue_usd,0);
+  const totalSpend=rows.reduce((a,r)=>a+r.spend_usd,0);
+  const totalProfit=totalRev-totalSpend;
+  const tiers={scale:0,watch:0,stop:0,dead:0};
+  rows.forEach(r=>tiers[r.tier]=(tiers[r.tier]||0)+1);
+  document.getElementById('kpis').innerHTML=`
+    <div class="kpi ${totalProfit>=0?'green':'red'}"><div class="label">Profit</div><div class="value">${totalProfit>=0?'+':''}${totalProfit.toFixed(2)}$</div><div class="sub">Rev ${totalRev.toFixed(2)}$ / Spend ${totalSpend.toFixed(2)}$</div></div>
+    <div class="kpi blue"><div class="label">Виджетов</div><div class="value">${rows.length}</div><div class="sub">с данными</div></div>
+    <div class="kpi green"><div class="label">Scale 🚀</div><div class="value">${tiers.scale}</div><div class="sub">profit>0 + epc≥1.5¢</div></div>
+    <div class="kpi yellow"><div class="label">Watch 👀</div><div class="value">${tiers.watch}</div><div class="sub">profit≥-5$ + epc≥1¢</div></div>
+    <div class="kpi red"><div class="label">Stop ⛔</div><div class="value">${tiers.stop}</div><div class="sub">убыточные</div></div>
+    <div class="kpi"><div class="label">Dead 💀</div><div class="value">${tiers.dead}</div><div class="sub">нет данных</div></div>
+  `;
+}
+
+function renderCharts(){
+  const top10=allRows.slice(0,10);
+  if(chartRevenue) chartRevenue.destroy();
+  chartRevenue=new Chart(document.getElementById('chart-revenue'),{
+    type:'bar',
+    data:{labels:top10.map(r=>r.widget_id),datasets:[{label:'Revenue $',data:top10.map(r=>r.revenue_usd),backgroundColor:'#1f6feb'}]},
+    options:{plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#6e7681',font:{size:10}}},y:{ticks:{color:'#6e7681'}}}}
+  });
+  const tiers={scale:0,watch:0,stop:0,dead:0};
+  allRows.forEach(r=>tiers[r.tier]++);
+  if(chartTier) chartTier.destroy();
+  chartTier=new Chart(document.getElementById('chart-tier'),{
+    type:'doughnut',
+    data:{labels:['Scale','Watch','Stop','Dead'],datasets:[{data:Object.values(tiers),backgroundColor:['#3fb950','#d29922','#f85149','#484f58']}]},
+    options:{plugins:{legend:{labels:{color:'#8b949e'}}}}
+  });
+}
+
+function sortBy(col){
+  if(sortCol===col) sortAsc=!sortAsc;
+  else{sortCol=col;sortAsc=false;}
+  renderTable();
+}
+
+function renderTable(){
+  const rows=[...allRows].sort((a,b)=>{
+    const av=a[sortCol],bv=b[sortCol];
+    const cmp=typeof av==='number'?av-bv:String(av).localeCompare(String(bv));
+    return sortAsc?cmp:-cmp;
+  });
+  const tierOrder={scale:0,watch:1,stop:2,dead:3};
+  document.getElementById('tbl-body').innerHTML=rows.map(r=>`<tr>
+    <td>${r.widget_id}</td>
+    <td>${r.country}</td>
+    <td>${r.visits.toLocaleString()}</td>
+    <td>${r.clicks.toLocaleString()}</td>
+    <td>${r.ctr}%</td>
+    <td>${r.leads}</td>
+    <td class="${r.revenue_usd>0?'pos':''}">${r.revenue_usd.toFixed(3)}</td>
+    <td class="${r.spend_usd>0?'neg':''}">${r.spend_usd.toFixed(3)}</td>
+    <td class="${r.profit>=0?'pos':'neg'}">${r.profit>=0?'+':''}${r.profit.toFixed(3)}</td>
+    <td>${(parseFloat(r.epc)).toFixed(3)}</td>
+    <td><span class="badge ${r.tier}">${r.tier}</span></td>
+  </tr>`).join('');
+}
+
+async function syncToday(){
+  const btn=document.getElementById('sync-btn');
+  const log=document.getElementById('sync-log');
+  btn.disabled=true; btn.textContent='Синкинг…';
+  log.textContent='';
+  const r=await fetch('/api/sync/today',{method:'POST'}).then(x=>x.json());
+  btn.disabled=false; btn.textContent='Синк сегодня';
+  log.textContent=r.message||JSON.stringify(r);
+  if(r.ok) loadData();
+}
+
+loadData();
+</script>
+</body>
+</html>
