@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Adskeeper Agent</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,system-ui,sans-serif;background:#0e1117;color:#e6edf3;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+header{background:#161b22;padding:8px 14px;border-bottom:1px solid #30363d;display:flex;gap:10px;align-items:center;flex-wrap:wrap;flex-shrink:0}
+header h1{margin:0;font-size:15px;font-weight:600;white-space:nowrap}
+header select,header button{background:#21262d;color:#e6edf3;border:1px solid #30363d;padding:5px 9px;border-radius:6px;font-size:12px}
+header button{cursor:pointer}
+header button:hover{background:#30363d}
+#status{font-size:11px;padding:3px 9px;border-radius:4px;margin-left:auto;white-space:nowrap}
+.status-ok{background:#0f5132;color:#a3cfbb}
+.status-warn{background:#664d03;color:#ffe69c}
+main{flex:1;display:grid;grid-template-columns:320px 1fr 300px;min-height:0}
+#catalog-panel{display:flex;flex-direction:column;min-height:0;border-right:1px solid #30363d;background:#0a0d12}
+#catalog-panel h2{margin:0;padding:10px 12px 6px;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:#8b949e;border-bottom:1px solid #30363d;flex-shrink:0}
+#catalog-filters{padding:8px 10px;display:flex;gap:6px;flex-shrink:0;border-bottom:1px solid #21262d;flex-wrap:wrap}
+#catalog-filters select,#catalog-filters input{background:#161b22;color:#e6edf3;border:1px solid #30363d;padding:4px 7px;border-radius:5px;font-size:11px}
+#catalog-filters input{flex:1;min-width:80px}
+#catalog-list{flex:1;overflow-y:auto;padding:6px 8px;display:flex;flex-direction:column;gap:4px}
+.stream-card{background:#161b22;border:1px solid #30363d;border-radius:6px;padding:8px 10px;cursor:pointer;transition:border-color .15s,background .15s}
+.stream-card:hover{border-color:#58a6ff;background:#1c2128}
+.s-type{font-size:10px;padding:1px 5px;border-radius:3px;font-weight:600;margin-right:4px}
+.s-type.HOT{background:#6e2020;color:#fca5a5}
+.s-type.SAFE{background:#1e3a20;color:#86efac}
+.s-type.PORT{background:#1e2a3a;color:#93c5fd}
+.s-type.PENS{background:#2a1e3a;color:#c4b5fd}
+.stream-card .s-title{font-size:12px;color:#c9d1d9;line-height:1.35;margin-top:4px}
+.stream-card .s-meta{font-size:10px;color:#6e7681;margin-top:2px}
+#catalog-count{font-size:11px;color:#6e7681;padding:4px 10px;flex-shrink:0;border-top:1px solid #21262d}
+#chat{display:flex;flex-direction:column;min-height:0}
+#messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{padding:9px 13px;border-radius:10px;max-width:88%;white-space:pre-wrap;word-wrap:break-word;line-height:1.45;font-size:13px}
+.msg.user{align-self:flex-end;background:#1f6feb;color:#fff}
+.msg.assistant{align-self:flex-start;background:#21262d}
+.msg.system{align-self:center;background:transparent;border:1px solid #30363d;font-size:11px;color:#8b949e;max-width:96%}
+#composer{padding:10px;border-top:1px solid #30363d;background:#161b22;display:flex;gap:8px;flex-shrink:0}
+#composer textarea{flex:1;resize:none;min-height:56px;max-height:180px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;padding:7px 10px;border-radius:6px;font-family:inherit;font-size:12px}
+#composer button{background:#238636;color:#fff;border:none;padding:0 16px;border-radius:6px;cursor:pointer;font-weight:600;font-size:13px}
+#composer button:hover{background:#2ea043}
+#composer button:disabled{opacity:.5;cursor:not-allowed}
+aside{background:#0d1117;display:flex;flex-direction:column;min-height:0;border-left:1px solid #30363d}
+.aside-section{padding:12px;border-bottom:1px solid #21262d}
+.aside-section h3{margin:0 0 8px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#8b949e}
+#draft-card{background:#161b22;border:1px solid #30363d;border-radius:7px;padding:10px;font-size:12px}
+.draft-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #21262d}
+.draft-row:last-child{border-bottom:none}
+.draft-row .k{color:#8b949e}
+.draft-row .v{color:#e6edf3;max-width:60%;word-break:break-all;text-align:right}
+.titles-list{font-size:11px;color:#a9b8c8;padding-left:16px;margin:5px 0 0}
+.titles-list li{padding:1px 0}
+button.create{width:100%;background:#1f6feb;color:#fff;border:none;padding:9px;border-radius:6px;cursor:pointer;font-weight:600;margin-top:8px;font-size:13px}
+button.create:disabled{background:#30363d;color:#8b949e;cursor:not-allowed}
+button.reset-btn{width:100%;background:transparent;color:#6e7681;border:1px solid #30363d;padding:5px;border-radius:6px;cursor:pointer;margin-top:5px;font-size:11px}
+#history-section{flex:1;overflow-y:auto;padding:10px 12px}
+#history-section h3{margin:0 0 6px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#8b949e}
+.history-item{font-size:11px;padding:5px 0;border-bottom:1px solid #21262d}
+.history-item .name{color:#e6edf3}
+.history-item .meta{color:#6e7681;font-size:10px}
+a.camp-link{color:#58a6ff;text-decoration:none}
+a.camp-link:hover{text-decoration:underline}
+.spinner{display:inline-block;width:11px;height:11px;border:2px solid #58a6ff;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🤖 Adskeeper Agent</h1>
+  <label>Гео: <select id="geo"><option value="">— гео —</option></select></label>
+  <button id="status-btn" onclick="checkStatus()">Очередь модерации</button>
+  <button onclick="resetSession()">Сброс</button>
+  <span id="status">…</span>
+</header>
+<main>
+  <div id="catalog-panel">
+    <h2>Потоки (<span id="catalog-total">0</span>)</h2>
+    <div id="catalog-filters">
+      <select id="cat-country"><option value="">Все страны</option></select>
+      <select id="cat-type">
+        <option value="">Все типы</option>
+        <option value="ADSKEEPER_HOT">🔥 HOT</option>
+        <option value="MGID_SAFE">✅ SAFE</option>
+        <option value="PENSION_HOT">💰 PENSION</option>
+        <option value="PORTFOLIO">📁 PORTFOLIO</option>
+      </select>
+      <input id="cat-search" type="text" placeholder="поиск…">
+    </div>
+    <div id="catalog-list"><div style="padding:20px;color:#6e7681;text-align:center">Загрузка…</div></div>
+    <div id="catalog-count"></div>
+  </div>
+
+  <section id="chat">
+    <div id="messages"></div>
+    <div id="composer">
+      <textarea id="input" placeholder="Вставь URL потока + заголовки (по одному на строке, макс 65 симв). Ctrl+Enter — отправить."></textarea>
+      <button id="send">Отправить</button>
+    </div>
+  </section>
+
+  <aside>
+    <div class="aside-section">
+      <h3>Черновик</h3>
+      <div id="draft-card">пусто</div>
+      <button class="create" id="create-btn" disabled>Создать кампанию</button>
+      <button class="reset-btn" onclick="resetSession()">Сбросить черновик</button>
+    </div>
+    <div id="history-section">
+      <h3>Созданные кампании</h3>
+      <div id="history">нет</div>
+    </div>
+  </aside>
+</main>
+<script>
+const SID = localStorage.getItem('agent_sid') || (() => {
+  const s = 'sess_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
+  localStorage.setItem('agent_sid', s); return s;
+})();
+const $=id=>document.getElementById(id);
+const msgs=$('messages'), inp=$('input'), sendBtn=$('send');
+const draftCard=$('draft-card'), createBtn=$('create-btn'), histDiv=$('history');
+const geoSel=$('geo'), statusEl=$('status');
+const catCountry=$('cat-country'), catType=$('cat-type'), catSearch=$('cat-search');
+const catList=$('catalog-list'), catTotal=$('catalog-total'), catCount=$('catalog-count');
+
+let allStreams=[];
+
+async function api(method, path, body) {
+  const opts = {method, headers:{'Content-Type':'application/json'}};
+  if (body) opts.body = JSON.stringify(body);
+  const r = await fetch(path, opts);
+  return r.json();
+}
+
+function addMsg(role, text) {
+  const el=document.createElement('div');
+  el.className='msg '+role;
+  el.textContent=text;
+  msgs.appendChild(el);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);}
+
+function renderDraft(d){
+  if(!d?.url&&!d?.titles?.length){draftCard.textContent='пусто';createBtn.disabled=true;return;}
+  const rows=[
+    ['Гео',d.geo||'—'],['Article ID',d.article_id||'—'],['Тема',d.theme||'—'],
+    ['URL',d.url?d.url.slice(0,45)+'…':'—'],
+  ];
+  let html=rows.map(([k,v])=>`<div class="draft-row"><span class="k">${k}</span><span class="v">${esc(v)}</span></div>`).join('');
+  if(d.titles?.length){
+    html+=`<div class="draft-row"><span class="k">Заголовки</span><span class="v">${d.titles.length}</span></div>`;
+    html+='<ul class="titles-list">'+d.titles.slice(0,5).map(t=>`<li>${esc(t)}</li>`).join('')+'</ul>';
+  }
+  draftCard.innerHTML=html;
+  createBtn.disabled=(d.status!=='ready');
+}
+
+function renderHistory(camps){
+  if(!camps?.length){histDiv.textContent='нет';return;}
+  histDiv.innerHTML=camps.map(c=>{
+    const tids=JSON.parse(c.teaser_ids_json||'[]');
+    return `<div class="history-item"><div class="name">${esc(c.name)}</div><div class="meta">${c.geo} · <a class="camp-link" target="_blank" href="https://office.adskeeper.com/campaigns/${c.campaign_id}">${c.campaign_id}</a> · ${tids.length} тиз · ${(c.created_at||'').slice(0,16)}</div></div>`;
+  }).join('');
+}
+
+async function loadStreams(){
+  const r=await fetch('/api/streams');
+  allStreams=await r.json();
+  const countries=[...new Set(allStreams.map(s=>s.country))].sort();
+  catCountry.innerHTML='<option value="">Все ('+allStreams.length+')</option>'+countries.map(cc=>{
+    const cnt=allStreams.filter(s=>s.country===cc).length;
+    return `<option value="${cc}">${cc} (${cnt})</option>`;
+  }).join('');
+  renderCatalog();
+}
+
+function typeShort(t){
+  if(t==='ADSKEEPER_HOT') return 'HOT';
+  if(t==='MGID_SAFE') return 'SAFE';
+  if(t==='PENSION_HOT') return 'PENS';
+  return 'PORT';
+}
+
+function renderCatalog(){
+  const cc=catCountry.value, tp=catType.value, q=catSearch.value.trim().toLowerCase();
+  let s=allStreams;
+  if(cc) s=s.filter(x=>x.country===cc);
+  if(tp) s=s.filter(x=>x.type===tp);
+  if(q) s=s.filter(x=>(x.title||'').toLowerCase().includes(q)||String(x.aid).includes(q));
+  catTotal.textContent=s.length;
+  catCount.textContent=`Показано: ${s.length} из ${allStreams.length}`;
+  if(!s.length){catList.innerHTML='<div style="padding:16px;color:#6e7681;text-align:center">Ничего не найдено</div>';return;}
+  catList.innerHTML=s.slice(0,200).map((x,i)=>`<div class="stream-card" data-aid="${x.aid}" data-url="${esc(x.url)}" data-title="${esc(x.title)}" data-country="${x.country}">
+    <div><span class="s-type ${typeShort(x.type)}">${typeShort(x.type)}</span><span style="font-size:10px;color:#6e7681">${x.country} · aid=${x.aid}</span></div>
+    <div class="s-title">${esc(x.title||'')}</div>
+    <div class="s-meta">${(x.url||'').slice(0,50)}…</div>
+  </div>`).join('');
+  catList.querySelectorAll('.stream-card').forEach(el=>{
+    el.addEventListener('click',()=>{
+      geoSel.value=el.dataset.country||geoSel.value;
+      inp.value=`${el.dataset.url}\n\n(Добавь 3-5 заголовков, по одному на строке, макс 65 символов)\nОригинал: ${el.dataset.title}`;
+      inp.focus();
+      catList.querySelectorAll('.stream-card').forEach(x=>x.style.borderColor='');
+      el.style.borderColor='#58a6ff';
+      addMsg('system',`Выбран поток aid=${el.dataset.aid} (${el.dataset.country}). Добавь заголовки и отправь.`);
+    });
+  });
+}
+
+catCountry.addEventListener('change',renderCatalog);
+catType.addEventListener('change',renderCatalog);
+catSearch.addEventListener('input',renderCatalog);
+
+async function loadGeos(){
+  const r=await fetch('/api/geos');
+  const geos=await r.json();
+  geoSel.innerHTML='<option value="">— гео —</option>'+geos.map(g=>`<option value="${g.key}">${g.key} — ${g.cpc}¢</option>`).join('');
+}
+
+async function loadHistory(){
+  const h=await api('GET',`/api/agent/history?session_id=${SID}`);
+  msgs.innerHTML='';
+  if(!h.messages?.length) addMsg('system','Выбери поток слева или вставь URL + заголовки. Ctrl+Enter — отправить.');
+  else h.messages.forEach(m=>addMsg(m.role,m.content));
+  renderDraft(h.draft);
+  renderHistory(h.campaigns);
+  if(h.draft?.geo) geoSel.value=h.draft.geo;
+}
+
+async function checkStatus(){
+  statusEl.textContent='…';statusEl.className='';
+  const s=await fetch('/api/status').then(r=>r.json());
+  statusEl.textContent=s.moderation_full?`⛔ ${s.count}/100`:'✅ Свободно';
+  statusEl.className=s.moderation_full?'status-warn':'status-ok';
+}
+
+sendBtn.addEventListener('click',async()=>{
+  const msg=inp.value.trim();
+  if(!msg) return;
+  addMsg('user',msg);
+  inp.value='';
+  sendBtn.disabled=true;sendBtn.innerHTML='<span class="spinner"></span>';
+  const r=await api('POST','/api/agent/chat',{session_id:SID,message:msg,geo:geoSel.value});
+  sendBtn.disabled=false;sendBtn.textContent='Отправить';
+  if(r.error){addMsg('system','⚠ '+r.error);return;}
+  addMsg('assistant',r.reply||'');
+  renderDraft(r.draft);
+});
+
+inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.ctrlKey){e.preventDefault();sendBtn.click();}});
+
+createBtn.addEventListener('click',async()=>{
+  createBtn.disabled=true;createBtn.textContent='Создаю…';
+  const r=await api('POST','/api/agent/confirm',{session_id:SID});
+  createBtn.textContent='Создать кампанию';
+  if(r.error){addMsg('system','⚠ '+r.error);createBtn.disabled=false;return;}
+  addMsg('system',`✅ Кампания ${r.campaign_id} создана! ${r.teaser_ids.length} тизеров. Блеклист применён.`);
+  renderDraft({});
+  const h=await api('GET',`/api/agent/history?session_id=${SID}`);
+  renderHistory(h.campaigns);
+});
+
+async function resetSession(){
+  await api('POST','/api/agent/reset',{session_id:SID});
+  msgs.innerHTML='';
+  renderDraft({});
+  addMsg('system','Черновик сброшен. Выбери поток или вставь URL.');
+}
+
+// Init
+loadGeos();
+loadStreams();
+loadHistory();
+checkStatus();
+</script>
+</body>
+</html>
