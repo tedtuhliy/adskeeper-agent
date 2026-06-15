@@ -330,3 +330,80 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`adskeeper-agent running on port ${PORT}`));
+
+// ── Analytics & Widget DB ─────────────────────────────────────────────────────
+const { getAnalytics, getSpend, getDbStats, upsertTodayStats } = require('./lib/widget_db');
+const { LuckyFeedApi, SOURCE_ADSKEEPER } = require('./lib/luckyfeed');
+const { getScheduleStatus, pauseAllCampaigns, resumeAllCampaigns } = require('./lib/dayparting');
+
+app.get('/api/widget-stats', (req, res) => {
+  try {
+    const { country, source_id } = req.query;
+    res.json(getAnalytics(country, source_id ? parseInt(source_id) : null));
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.get('/api/widget-spend', (req, res) => {
+  try {
+    const days = parseInt(req.query.days || 30);
+    const dateTo = new Date().toISOString().slice(0, 10);
+    const dateFrom = new Date(Date.now() - days * 86400000).toISOString().slice(0, 10);
+    res.json(getSpend(dateFrom, dateTo));
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.post('/api/sync/today', async (req, res) => {
+  try {
+    const api = new LuckyFeedApi();
+    if (!api.key) return res.status(500).json({ error: 'LUCKY_KEY env not set' });
+    const countries = ['BG','SK','CZ','HU','SI','RO','GR','RS','HR','DE','AT','CH','FR','BE','ES','PT','NL','IT'];
+    let total = 0;
+    for (const cc of countries) {
+      const rows = await api.fetchToday(SOURCE_ADSKEEPER, cc);
+      if (rows.length) { upsertTodayStats(rows.map(r => ({ ...r, country_code: cc })), SOURCE_ADSKEEPER); total += rows.length; }
+    }
+    res.json({ ok: true, message: `Синкнуто ${total} записей за сегодня` });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// ── Balances ──────────────────────────────────────────────────────────────────
+app.get('/api/balances', async (req, res) => {
+  try {
+    const accounts = [
+      { id: 848676, label: 'AK 848676', geos: 'BG·SK·CZ·HU·SI·RO·GR·RS·HR', token: process.env.ADSKEEPER_TOKEN_848 },
+      { id: 849458, label: 'AK 849458', geos: 'DE·AT·CH·FR·BE·ES·PT·NL·IT',   token: process.env.ADSKEEPER_TOKEN_849 },
+    ];
+    const results = await Promise.all(accounts.map(async a => {
+      if (!a.token) return { ...a, balance: null };
+      try {
+        const api = new AdskeeperApi(a.token, a.id);
+        const info = await api.getClientInfo();
+        return { ...a, balance: info?.wallet?.balance ?? info?.balance ?? null };
+      } catch { return { ...a, balance: null }; }
+    }));
+    res.json({ accounts: results, daypart: getScheduleStatus() });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// ── Dayparting ────────────────────────────────────────────────────────────────
+app.get('/api/daypart/status', (req, res) => res.json(getScheduleStatus()));
+
+app.post('/api/daypart/start', async (req, res) => {
+  try {
+    const results = await resumeAllCampaigns();
+    res.json({ ok: true, count: results.filter(r => !r.error).length, results });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.post('/api/daypart/stop', async (req, res) => {
+  try {
+    const results = await pauseAllCampaigns();
+    res.json({ ok: true, count: results.filter(r => !r.error).length, results });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// ── DB Stats ──────────────────────────────────────────────────────────────────
+app.get('/api/db-stats', (req, res) => {
+  try { res.json({ agent: require('./lib/db').db().prepare("SELECT COUNT(*) as c FROM sessions").get(), widget: getDbStats() }); }
+  catch (e) { res.status(500).json({ error: e.message }); }
+});
